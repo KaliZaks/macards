@@ -18,11 +18,11 @@ echo '
 				<col width="63px">
 				<col width="63px">
 				<col width="60px">
-				<col width="65px">
+				<col width="65px" id="expandable">
 				<col width="64px">
 				  ';
 
-$sql = 'SELECT thumbid, jname, rare, cost, maxhp, maxatk, cp, lbmaxhp, lbmaxatk, lbcp, race, `force` FROM `macardsi_base`.cardbase';
+$sql = 'SELECT thumbid, jname, rare, cost, maxhp, maxatk, cp, lbmaxhp, lbmaxatk, lbcp, race, `force`, skillno FROM `macardsi_base`.cardbase';
 
 //處理 左側 搜尋功能表
 
@@ -136,8 +136,8 @@ $smartgrid = new smartGrid;
 $smartgrid->setPath('ajax');
 $smartgrid->setQueryString($sql);
 $smartgrid->setSorting('rare', 'ASC', false, $subSortBy, $subSortDirection);
-$arrCols = array('頭像', '名字', '★', 'COST', '基本滿級HP', '基本滿級ATK', '基本評分', '限突滿級HP', '限突滿級ATK', '限突評分', '陣營', 'フォース');
-$arrPercent = array('85px', '122px', '48px', '46px', '63px', '63px', '60px', '63px', '63px', '60px', '65px', '64px');
+$arrCols = array('頭像', '名字', '★', 'COST', '基本滿級HP', '基本滿級ATK', '基本評分', '限突滿級HP', '限突滿級ATK', '限突評分', '陣營', 'フォース', '技能');
+$arrPercent = array('85px', '122px', '48px', '46px', '63px', '63px', '60px', '63px', '63px', '60px', '65px', '64px', '129px');
 $smartgrid->echoSortAjax('showgrid', $arrCols, $arrPercent, '', false);
 
 /*echo '</table>
@@ -201,7 +201,7 @@ if($smartgrid->getNumRows() >0){
 				break;
 		}
 		echo '
-			    <td>'.$race.'</td>';
+			    <td name="smartcol10">'.$race.'</td>';
 		switch($row['force']){
 			case 0:
 				$force = '--';
@@ -220,15 +220,18 @@ if($smartgrid->getNumRows() >0){
 				break;
 		}
 		echo '
-			    <td>'.$force.'</td>';
+			    <td name="smartcol11">'.$force.'</td>';
+		echo '
+			    <td name="smartcol12">這個欄位擺技能</td>';
 		echo '
 			  </tr>';
+			  $i++;
 	}
 } else {
 		echo '
 			  <tr>';
 		echo '
-			    <td colspan="12"> *沒有查詢到任何資料</td>';
+			    <td colspan="13"> *沒有查詢到任何資料</td>';
 		echo '
 			  </tr>';
 }

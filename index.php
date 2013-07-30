@@ -77,6 +77,18 @@ $arrCounts = explode("\r\n", $load_count);
 		cb_rare [2] = "7"
         $.get('ajax/ajax_index.php', { "cb_rare": cb_rare, time: serverdate.getTime()}, function(data){
 			$('#showgrid').html(data);
+			$('[name=radio1]:first').click(function(){
+				$("[name=smartcol12]").addClass("invis");
+				$("#expandable").css("width", "65px");
+				$("[name=smartcol10]").removeClass("invis");
+				$("[name=smartcol11]").removeClass("invis");
+			}).click();
+			$('[name=radio1]:eq(1)').click(function(){
+				$("[name=smartcol10]").addClass("invis");
+				$("[name=smartcol11]").addClass("invis");
+				$("#expandable").css("width", "129px");
+				$("[name=smartcol12]").removeClass("invis");
+			});
 		});
     });
 	</script>
@@ -105,11 +117,17 @@ $arrCounts = explode("\r\n", $load_count);
 	.gotop{
 		top:1px;
 	}
+	.invis{
+		display:none;
+	}
 	
-	/* modified Bootstrap style */
+	/* overwrite Bootstrap style */
 	.ui-accordion .ui-accordion-content{
 		padding: 2px;
 		line-height:22px;
+	}
+	.ui-button {
+		padding: 5px 8px 6px;
 	}
 	</style>
 </head>
@@ -251,6 +269,11 @@ $arrCounts = explode("\r\n", $load_count);
             	</div>
 <a href="#" class="gray-btn" style="margin:2px 0 0 130px" id="btnsubmit"><span>送出</span></a>
 
+                <div id="radioset1">
+					<h3 class="title">介面切換</h3>
+                    <input type="radio" id="radio1_1" name="radio1"><label for="radio1_1">一般顯示</label>
+                    <input type="radio" id="radio1_2" name="radio1"><label for="radio1_2">技能顯示</label>
+                </div>
 			</div>
             </form>
 			<!-- end sidebar widget -->
@@ -288,6 +311,7 @@ echo '今日訪客： '.$arrCounts[1].'<br>'.'本月訪客： '.$arrCounts[2].'<
 $("#menu-collapse").accordion({
     header: "h3"
 });
+$('#radioset1').buttonset();
 </script>
 </body>
 </html>
